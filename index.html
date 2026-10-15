@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你下班，它关门</title>
+    <link rel="stylesheet" href="style.css">
+
+<!-- Leaflet 地图 -->
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+</head>
+<body>
+    <!-- 全站背景音乐控制器：放在所有章节之外 -->
+<div class="bgm-control" id="bgmControl">
+    <audio
+        id="siteBgm"
+        src="./audio/one.mp3"
+        loop
+        preload="metadata"
+    ></audio>
+
+    
+    <button
+        id="bgmToggle"
+        type="button"
+        aria-label="播放背景音乐"
+        aria-pressed="false"
+    >
+        ♫ 播放背景音
+    </button>
+</div>
+
+    <!-- 滚动叙事部分 -->
+    <main class="scroll-narrative">
+        <!-- 第一阶段：封面 -->
+       <section id="cover-section" class="narrative-section cover-section">
+       <h1 class="cover-title">你下班，它关门</h1>
+       
+      <div class="cover-intro">
+          <h2>18:00，夜幕降临。</h2>
+         <p>对于很多刚结束工作的人来说，</p>
+          <p>一天中真正属于自己的时间，才刚刚开始……</p>
+      </div>
+
+       </section>
+
+       <!-- 新增屏幕：第一章办公楼 -->
+       <section id="office-background-section" class="narrative-section office-background-section">
+
+          <div class="office-background-text">
+            <p>他们想做一些与工作无关的事情，</p>
+            <p>想去图书馆看看书、想去博物馆看一场展览、<br>
+            想去美术馆安静地待一会……</p>
+           <p>让疲惫了一天的自己重新慢下来。</p>
+         </div>
+         
+       </section>
+
+        <!-- 第三阶段：下班的人 -->
+        <section id="people-section" class="narrative-section people-section">
+            <div class="people-text">
+                <p>然而，当他们终于有时间靠近这些文化空间时，</p>
+                <p>一个现实的问题却出现了，</p>
+                <p>这些空间还在等待他们吗？</p>
+            </div>
+            <div class="office-area">
+                <img
+                  class="office-building-image"
+                   src="./images/停止入馆.png"
+                    alt=""
+                    aria-hidden="true"
+               >
+            </div>
+        </section>
+
+        <!-- 第六阶段：核心问题 -->
+        <section id="question-section"
+         class="narrative-section question-section">
+
+    <!-- 第一阶段：两行核心问题 -->
+    <div class="question-stage question-stage-prompt">
+        <p class="question-prompt-line">
+            我们想去的文化场馆，
+        </p>
+
+        <p class="question-prompt-line question-prompt-highlight">
+            能等到我们下班吗？
+        </p>
+
+    </div>
+
+    <!-- 第二阶段：调查说明 -->
+    <div class="question-stage question-stage-data">
+
+        <p>
+            为了回答这个问题，我们整理了广州的博物馆、美术馆、纪念馆、
+            文化馆和图书馆五类公共文化场馆的公开信息，
+            统计了95家区级及以上场馆的开放数据。
+        </p>
+
+    </div>
+
+</section>
+
+        <!-- 第一章数据页面 -->
+<section id="data-section" class="narrative-section data-section">
+
+    <div class="data-title">
+        <h2>
+            18:00之后，城市里的文化空间还剩多少可能？
+        </h2>
+    </div>
+
+<div class="flourish-container">
+
+    <iframe 
+        src="https://flo.uri.sh/visualisation/30450069/embed" 
+        title="Interactive or visual content" 
+        class="flourish-embed-iframe" 
+        frameborder="0" 
+        scrolling="no" 
+        style="width:100%;height:380px;" 
+        sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation">
+    </iframe>
+
+</div>
+
+    <!-- 表格下方的数据说明 -->
+    <div class="venue-data-description">
+        <p>
+        图表显示，17:00-18:00是公共文化场馆集中闭馆的时段，共有55家场馆在这一小时内结束开放。加上17:00前闭馆的3家，<span style="color: #f4d16a;">截至18:00，已有58家场馆停止服务</span>，
+        </p>
+
+        <p><span style="color: #f4d16a;">占全部95家场馆的61.05%。</span>对18:00后下班的上班族而言，超六成场馆在其抵达前已闭馆，供给时段与到达时间存在结构性错位。</p>
+
+        <p>
+        18:00-19:00期间闭馆的15家场馆，虽覆盖了18:00后的时段，但实际可服务时长不足一小时，有效供给相对有限。相比之下，19:00及以后闭馆的场馆有22家，
+        </p>
+
+        <p>占样本总数的23.16%，是夜间文化服务的主要力量。</p>
+
+    </div>
+
+</section>
+
+        <!-- 第七阶段：第一章标题 -->
+        <section id="chapter1-intro-section" class="narrative-section chapter1-intro-section">
+            <h2 class="chapter-intro-title">当城市亮起灯，<br>文化空间的灯正在一盏盏熄灭……</h2>
+        </section>
+
+            <!-- 第一章结尾：动态地图 -->
+
+  <section id="chapter1-map-section" class="narrative-section">
+
+    <div class="map-time-control">
+
+    <div id="map-current-time">
+        17:00
+    </div>
+
+    <div class="map-time-line">
+
+        <div class="map-time-progress"></div>
+
+        <button data-time="17:00">
+            <span class="time-dot"></span>
+            <span class="time-label">17:00</span>
+        </button>
+
+        <button data-time="18:00">
+            <span class="time-dot"></span>
+            <span class="time-label">18:00</span>
+        </button>
+
+        <button data-time="19:00">
+            <span class="time-dot"></span>
+            <span class="time-label">19:00</span>
+        </button>
+
+        <button data-time="20:00">
+            <span class="time-dot"></span>
+            <span class="time-label">20:00</span>
+        </button>
+
+        <button data-time="21:00">
+            <span class="time-dot"></span>
+            <span class="time-label">21:00</span>
+        </button>
+
+    </div>
+
+
+</div>
+
+<div id="chapter1-map"></div>
+
+<div id="map-ending-text" class="map-ending-text">
+    <p>对于白天忙于工作的上班族来说，随着下班时间的推迟，可选择的公共文化空间越来越少。</p>
+    <p>即使公共文化场馆提供了相应的文化服务，上班族也可能因下班时间晚而与场馆开放时间错位，</p>
+    <p>难以在工作日真正走进这些文化空间。</p>
+</div>
+
+</section>
+
+ <!-- 第二章：下班之后，文化生活还剩下多少可能？ -->
+    <section id="chapter2" class="chapter chapter2">
+
+    <!-- 第二章标题 -->
+    <div class="chapter2-title scene">
+      <h2>
+        <span>下班之后，</span>
+        <span>文化生活还剩下多少可能？</span>
+      </h2>
+    </div>
+
+    <!-- 场景1：聊天 -->
+    <section class="chapter2-scene scene scene-chat">
+        <div class="chat-container">
+
+            <div class="chat-bubble bubble-white">
+                终于下班了，去看展吗？
+            </div>
+
+            <div class="chat-bubble bubble-green">
+                现在去？来得及吗？
+            </div>
+
+            <div class="chat-bubble bubble-white">
+                我查查……五公里，七点就关门了。
+            </div>
+
+            <div class="chat-bubble bubble-green">
+                到那儿都关门了。
+            </div>
+
+            <div class="chat-bubble bubble-white">
+                ……算了。
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- 第二章第三屏：问题 -->
+    <section class="chapter2-scene scene scene-question">
+
+        <p>对一个刚下班的人来说，</p>
+        <p>去看一次展览之前，</p>
+        <p>得提前算好两件事：</p>
+
+        <div class="question-highlight">
+            路有多远？
+        </div>
+        <div class="question-highlight">
+            场馆还能开多久？
+        </div>
+        <p>因为抵达场馆的时间，也决定了最终还能使用多少开放时间。</p>
+
+    </section>
+
+
+    <!-- 第二章第四屏：横向时间轴情景模拟通勤 -->
+   <section class="chapter2-scene scene scene-commute">
+
+    <div class="journey-sticky">
+
+        <p class="journey-caption">一次下班后的看展路线</p>
+
+        <div class="journey-clock">
+            <span>通勤时间</span>
+            <strong id="journey-current-time">18:00</strong>
+        </div>
+
+        <div class="journey-route">
+
+            <!-- 横向路线 -->
+            <div class="journey-line" aria-hidden="true">
+                <span class="journey-line-progress"></span>
+            </div>
+
+            <!-- 行走的小人：位于线路上方 -->
+            <svg class="journey-person"
+                 viewBox="0 0 48 54"
+                 aria-hidden="true">
+
+                <circle cx="24" cy="7" r="5" fill="currentColor"/>
+
+                <path d="M24 14 L24 31"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"/>
+
+                <path class="journey-arm"
+                      d="M24 19 L14 27"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"/>
+
+                <path class="journey-arm"
+                      d="M24 19 L34 26"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"/>
+
+                <path class="journey-leg journey-leg-left"
+                      d="M24 31 L15 49"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"/>
+
+                <path class="journey-leg journey-leg-right"
+                      d="M24 31 L35 46"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"/>
+            </svg>
+
+            <!-- 公司 -->
+            <div class="journey-stop journey-office-stop">
+                <span class="journey-node"></span>
+
+                <svg class="journey-icon" viewBox="0 0 48 48"
+                     aria-hidden="true">
+                    <rect x="9" y="5" width="30" height="38"
+                          rx="2" fill="none"
+                          stroke="currentColor" stroke-width="2"/>
+                    <path d="M17 12h5 M27 12h5 M17 20h5 M27 20h5
+                             M17 28h5 M27 28h5 M20 43v-7h8v7"
+                          fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round"/>
+                </svg>
+
+                <div class="journey-stop-label">
+                    <strong>公司</strong>
+                    <span>18:00 下班</span>
+                </div>
+            </div>
+
+            <!-- 地铁 -->
+            <div class="journey-stop journey-subway-stop">
+                <span class="journey-node"></span>
+
+                <svg class="journey-icon" viewBox="0 0 48 48"
+                     aria-hidden="true">
+                    <rect x="9" y="4" width="30" height="35"
+                          rx="7" fill="none"
+                          stroke="currentColor" stroke-width="2"/>
+                    <path d="M13 12h22v12H13z M15 39l-5 6 M33 39l5 6
+                             M16 31h3 M29 31h3"
+                          fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                    <circle cx="17" cy="27" r="2" fill="currentColor"/>
+                    <circle cx="31" cy="27" r="2" fill="currentColor"/>
+                </svg>
+
+                <div class="journey-stop-label">
+                    <strong>地铁</strong>
+                    <span>通勤途中</span>
+                </div>
+            </div>
+
+            <!-- 步行 -->
+            <div class="journey-stop journey-walk-stop">
+                <span class="journey-node"></span>
+
+                <svg class="journey-icon" viewBox="0 0 48 48"
+                     aria-hidden="true">
+                    <path d="M17 7c-3 1-4 5-2 8s6 3 8 1 1-6-2-8-3-2-4-1z"
+                          fill="currentColor"/>
+                    <path d="M28 22c-3 1-4 5-2 8s6 3 8 1 1-6-2-8-3-2-4-1z"
+                          fill="currentColor"/>
+                    <path d="M13 18c-4 5-5 10-2 14 M25 33c-4 4-5 8-3 11"
+                          fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round"/>
+                </svg>
+
+                <div class="journey-stop-label">
+                    <strong>步行</strong>
+                    <span>最后一段路</span>
+                </div>
+            </div>
+
+            <!-- 文化场馆 -->
+            <div class="journey-stop journey-museum-stop">
+                <span class="journey-node"></span>
+
+                <svg class="journey-icon" viewBox="0 0 48 48"
+                     aria-hidden="true">
+                    <path d="M4 16L24 5l20 11H4z M8 20h32
+                             M10 20v18 M19 20v18 M29 20v18 M38 20v18
+                             M5 39h38 M3 44h42"
+                          fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+
+                <div class="journey-stop-label">
+                    <strong>文化场馆</strong>
+                    <span>18:40 抵达</span>
+                </div>
+
+                <div class="journey-close">19:00 闭馆</div>
+
+                <div class="journey-remaining">
+                    只剩 <strong>20分钟</strong>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 路线下方的通勤信息 -->
+        <div class="journey-info">
+
+            <div class="journey-info-item">
+                <span>通勤距离</span>
+                <strong>约5公里</strong>
+            </div>
+
+            <div class="journey-info-item">
+                <span>交通方式</span>
+                <strong>地铁＋步行</strong>
+            </div>
+
+            <div class="journey-info-item">
+                <span>通勤时间</span>
+                <strong>约40分钟</strong>
+            </div>
+
+        </div>
+
+        <!-- 时间轴结尾说明 -->
+        <p class="journey-conclusion">
+            以18:00下班为例，假设通勤时间为40分钟。18:40仍在开放的场馆仅有
+            <strong>22家</strong>，占统计的95家文化场馆的
+            <strong>24.21%</strong>。
+        </p>  
+    </div>
+</section>
+
+    <!-- 第二章第三屏：动态地图2 -->
+  <section class="chapter2-scene scene scene-data">
+
+    <div class="chapter2-map-sticky">
+
+        <!-- 标题 -->
+        <div class="chapter2-map-heading">
+            <h3>
+                如果18:00下班，40分钟通勤，<br>
+                到18:40时，还有多少场馆开着？
+            </h3>
+        </div>
+
+
+        <!-- 地图 -->
+        <div id="chapter2-data-map"></div>
+
+        <!-- 地图信息 -->
+        <div class="chapter2-map-count">
+
+            <div class="map-count-number">
+                <strong id="chapter2-map-count">95</strong>
+                <span>家</span>
+            </div>
+
+            <p id="chapter2-map-status">
+                95家场馆
+            </p>
+
+        </div>
+
+
+        <!-- 最终结果 -->
+        <div class="chapter2-map-result">
+
+            <span>18:40到达时</span>
+            <strong>
+                22家
+            </strong>
+            <p>
+                仍在开放
+            </p>
+
+        </div>
+
+
+        <!-- 注释 -->
+        <p class="chapter2-map-note">
+            数据来源：95家区级及以上常规开放公共文化场馆
+        </p>
+    </div>
+</section>
+
+<!-- 第二章第四屏：夜间场馆开放数据 -->
+<section class="chapter2-scene scene scene-night-data">
+
+    <div class="night-data-container">
+
+        <h2 class="night-data-title">
+            95家文化场馆不同到达时间的开放情况
+       </h2>
+
+        <div class="night-data-table-wrap">
+            <table class="night-data-table">
+                <thead>
+                    <tr>
+                        <th>到达时间</th>
+                        <th>仍开放场馆数</th>
+                        <th>占95家的比例</th>
+                        <th>场馆类型</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>18:40</td>
+                        <td>22家</td>
+                        <td>23.16%</td>
+                        <td>11家图书馆，9家文化馆，2家博物馆</td>
+                    </tr>
+                    <tr>
+                        <td>19:00</td>
+                        <td>22家</td>
+                        <td>23.16%</td>
+                        <td>11家图书馆，9家文化馆，2家博物馆</td>
+                    </tr>
+                    <tr>
+                        <td>19:30</td>
+                        <td>21家</td>
+                        <td>22.11%</td>
+                        <td>10家图书馆，9家文化馆，2家博物馆</td>
+                    </tr>
+                    <tr>
+                        <td>20:00</td>
+                        <td>18家</td>
+                        <td>18.95%</td>
+                        <td>8家图书馆，9家文化馆，1家博物馆</td>
+                    </tr>
+                    <tr>
+                        <td>20:30</td>
+                        <td>17家</td>
+                        <td>17.89%</td>
+                        <td>7家图书馆，9家文化馆，1家博物馆</td>
+                    </tr>
+                    <tr>
+                        <td>21:00</td>
+                        <td>4家</td>
+                        <td>4.21%</td>
+                        <td>4家文化馆</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="night-data-analysis">
+        <p>
+          <span style="color: #f4d16a;">总体来看，公共文化场馆的夜间供给覆盖率偏低，且在时间分布和场馆类型上均存在不均衡。</span>95家样本场馆中，
+          18:40仍开放的仅有22家，占比23.16%。
+        </p>
+        
+        <p>
+          对于18:00下班、通勤时间较长的上班族而言，抵达时已有76.84%的场馆闭馆，供给时间与到达时间明显错位。进一步看，随着时间推移，场馆开放数量持续
+        </p>
+         
+        <p>
+          减少：20:30仍有17家场馆开放， 至21:00骤降至4家，占比仅4.21%。
+          同时，场馆类型结构也呈现出一定的不均衡：图书馆、文化馆构成夜间开放的主体，而
+        </p>
+          
+        <p>
+          博物馆、美术馆、纪念馆等场馆的夜间开放相对有限。
+        </p>
+
+        <p>
+          <span class="night-data-note">
+              注：18:00下班、40分钟通勤、18:40到达为统一的模拟条件。
+              当前计算仅依据闭馆时间判断是否开放，并不代表仍能允许入场。
+           </span>
+       </p>
+
+       </div>
+</section>
+
+<!-- 第二章第五屏：然而，还开着≠还有很多时间-->
+<section class="chapter2-scene scene scene-time-left">
+
+    <div class="time-left-sticky">
+
+        <div class="time-left-heading">
+            <h3>
+                然而，还开着≠还有很多时间
+            </h3>
+
+            <p class="time-left-intro">
+                18:40到达以后，留给文化活动的时间还有多少？
+            </p>
+
+        </div>
+
+
+        <div class="time-bars">
+
+            <!-- 19:00 -->
+            <div class="time-bar-row">
+
+                <div class="time-bar-label">
+                    <strong>19:00</strong>
+                    <span>闭馆</span>
+                </div>
+
+                <div class="time-bar-track">
+                    <div
+                        class="time-bar-fill"
+                        data-minutes="20">
+                    </div>
+                </div>
+
+                <div class="time-bar-value">
+                    <strong>20分钟</strong>
+                </div>
+
+            </div>
+
+
+            <!-- 19:30 -->
+            <div class="time-bar-row">
+
+                <div class="time-bar-label">
+                    <strong>19:30</strong>
+                    <span>闭馆</span>
+                </div>
+
+                <div class="time-bar-track">
+                    <div
+                        class="time-bar-fill"
+                        data-minutes="50">
+                    </div>
+                </div>
+
+                <div class="time-bar-value">
+                    <strong>50分钟</strong>
+                </div>
+
+            </div>
+
+
+            <!-- 20:00 -->
+            <div class="time-bar-row">
+
+                <div class="time-bar-label">
+                    <strong>20:00</strong>
+                    <span>闭馆</span>
+                </div>
+
+                <div class="time-bar-track">
+                    <div
+                        class="time-bar-fill"
+                        data-minutes="80">
+                    </div>
+                </div>
+
+                <div class="time-bar-value">
+                    <strong>80分钟</strong>
+                </div>
+
+            </div>
+
+
+            <!-- 21:00 -->
+            <div class="time-bar-row">
+
+                <div class="time-bar-label">
+                    <strong>21:00</strong>
+                    <span>闭馆</span>
+                </div>
+
+                <div class="time-bar-track">
+                    <div
+                        class="time-bar-fill"
+                        data-minutes="140">
+                    </div>
+                </div>
+
+                <div class="time-bar-value">
+                    <strong>140分钟</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p class="time-left-note">
+            【以18:40到达为例，不同闭馆时间对应不同的剩余文化时间】
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- 第二章第六屏：可支配文化时间的数据统计 -->
+<section class="chapter2-scene scene scene-time-budget">
+
+    <div class="time-budget-container">
+
+        <!-- 标题 -->
+        <div class="time-budget-heading">
+            <h3>那...还开着，究竟是指还剩多少时间呢？</h3>
+        </div>
+
+        <!-- 数据表 -->
+        <div class="time-budget-table-wrap">
+
+            <table class="time-budget-table">
+
+                <thead>
+                    <tr>
+                        <th>到达时间</th>
+                        <th>仍开放场馆数</th>
+                        <th>可支配时间<br>＜1h</th>
+                        <th>可支配时间<br>≥1h</th>
+                        <th>可支配时间<br>≥1.5h</th>
+                        <th>可支配时间<br>≥2h</th>
+                        <th>可支配时间<br>≥2.5h</th>
+                        <th>可支配时间<br>≥3h</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th>18:40</th>
+                        <td>22家</td>
+                        <td>1家（4.55%）</td>
+                        <td>21家（95.45%）</td>
+                        <td><span style="color: #f4d16a;">18家（81.82%）</span></td>
+                        <td>17家（77.27%）</td>
+                        <td>4家（18.18%）</td>
+                        <td>1家（4.55%）</td>
+                    </tr>
+
+                    <tr>
+                        <th>19:00</th>
+                        <td>22家</td>
+                        <td>1家（4.55%）</td>
+                        <td>21家（95.45%）</td>
+                        <td><span style="color: #f4d16a;">18家（81.82%）</span></td>
+                        <td>17家（77.27%）</td>
+                        <td>4家（18.18%）</td>
+                        <td>1家（4.55%）</td>
+                    </tr>
+
+                    <tr>
+                        <th>19:30</th>
+                        <td>21家</td>
+                        <td>3家（14.29%）</td>
+                        <td>18家（85.71%）</td>
+                        <td><span style="color: #f4d16a;">17家（80.95%）</span></td>
+                        <td>4家（19.05%）</td>
+                        <td>1家（4.76%）</td>
+                        <td>—</td>
+                    </tr>
+
+                    <tr>
+                        <th>20:00</th>
+                        <td>18家</td>
+                        <td>1家（5.56%）</td>
+                        <td>17家（94.44%）</td>
+                        <td><span style="color: #f4d16a;">4家（22.22%）</span></td>
+                        <td>1家（5.56%）</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+
+                    <tr>
+                        <th>20:30</th>
+                        <td>17家</td>
+                        <td>13家（76.47%）</td>
+                        <td>4家（23.53%）</td>
+                        <td><span style="color: #f4d16a;">—</span></td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+
+                    <tr>
+                        <th>21:00</th>
+                        <td>4家</td>
+                        <td>3家（75%）</td>
+                        <td>1家（25%）</td>
+                        <td><span style="color: #f4d16a;">—</span></td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- 数据分析 -->
+        <div class="time-budget-analysis">
+
+            <p>
+                从到达时间来看，公共文化场馆仍在开放，并不意味着到访者拥有充足的使用时间。以1.5小时作为相对充足的可支配时间标准，18:40抵达时，22家开放场馆中
+            
+            <p>
+                有18家能够满足这一条件；到20:00，尽管仍有18家场馆开放，满足这一条件的却仅剩4家，占当时开放场馆的22.22%。20:30以后，剩余可支配时间进一步缩短，
+            </p>
+
+            <p>
+                17家仍开放的场馆中，有13家的可支配时间不足1小时。数据表明，随着到达时间推迟，上班族面临的限制不仅是可选择的场馆数量减少，也包括可用于参观和使
+            </p>
+
+            <p>
+                用的时间不足。
+            </p>
+
+        </div>
+
+        <!-- 注释 -->
+        <p class="time-budget-note">
+            注：可支配时间 = 闭馆时间 - 到达时间。可支配时间仅作为理论上的统计指标，无法直接等同于实际的有效文化体验时间。
+        </p>
+
+    </div>
+
+</section>
+
+
+    <!-- 场景12｜“那算了” -->
+<section class="chapter2-scene scene scene-ending">
+
+    <div class="ending-sticky">
+
+        <!-- 人物 -->
+        <div class="ending-person">
+            <div class="ending-person-head"></div>
+            <div class="ending-person-body"></div>
+        </div>
+
+        <!-- 人物的最后一句话 -->
+        <div class="ending-bubble">
+            那算了，估计赶不上了，周末再去吧。
+        </div>
+
+        <!-- 日历 -->
+        <div class="ending-calendar">
+
+            <div class="calendar-header">
+                <span>今天</span>
+                <strong>工作日</strong>
+            </div>
+
+            <div class="calendar-pages">
+
+                <div class="calendar-page calendar-today">
+                    <span>今天</span>
+                    <strong>工作日有点忙，要不周末去吧</strong>
+                </div>
+
+                <div class="calendar-arrow">
+                    ↓
+                </div>
+
+                <div class="calendar-page calendar-weekend">
+                    <span>周末</span>
+                    <strong>临时有了别的活动，下次再去吧</strong>
+                </div>
+
+                <div class="calendar-arrow">
+                    ↓
+                </div>
+
+                <div class="calendar-page calendar-next">
+                    <span>下一个周末</span>
+                    <strong>还是下次再找个时间去吧</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 最后问题 -->
+        <div class="ending-question">
+            可如果每次都只能说——下次再去，<br>
+            我们还会愿意去吗？
+        </div>
+    </div>
+</section>
+</main>
+  
+
+<!-- =====================================================
+     第三章：问卷调查数据解析：“错过之后发生了什么”
+===================================================== -->
+<section
+    id="chapter3"
+    class="chapter chapter3"
+>
+
+<!-- =================================================
+     第三章第一屏｜错过之后
+================================================== -->
+<section class="chapter3-scene scene13">
+
+    <div class="chapter3-inner">
+
+        <!-- 主标题 -->
+        <h2 class="chapter3-main-title">
+            错过一次之后，<br>
+            我们还会再去吗？
+        </h2>
+
+        <!-- 分隔线 -->
+        <div class="chapter3-line"></div>
+
+        <!-- 三句话依次出现 -->
+        <div class="chapter3-lead">
+
+            <p>
+                一次错过，可能只是偶然，
+            </p>
+
+            <p>
+                今天去不了，那就改天。
+            </p>
+
+            <p class="lead-emphasis">
+                可生活里，又有几个“改天”？
+            </p>
+
+        </div>
+
+        <!-- 底部滚动提示 -->
+        <div class="chapter3-scroll-cue" aria-hidden="true">
+            <span class="scroll-cue-arrow">↓</span>
+            <span class="scroll-cue-text">继续向下，看看调查发现</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     第三章第二屏｜多少人没去成？又为什么？
+     Q6 人形比例图 + Q7 圆形气泡图
+================================================== -->
+
+<section class="chapter3-scene scene14">
+
+    <div class="chapter3-data-inner">
+
+        <!-- 顶部调查说明 -->
+        <div class="chapter3-survey-intro">
+
+            <div class="chapter3-survey-context">
+
+                <p class="chapter3-scene-kicker">
+                    问卷调查 · 广州上班族下班后公共文化生活调查
+                </p>
+
+                <p>
+                    我们试图去了解：在时间错位的影响下，居民参与公共文化生活的实际体验。
+                </p>
+
+            </div>
+
+            <div class="chapter3-sample-count">
+                <span>有效样本</span>
+                <strong>N=117</strong>
+            </div>
+
+        </div>
+
+        <!-- 页面标题 -->
+        <h2 class="chapter3-scene-title">
+            究竟有多少人，真的因为时间原因没去成？
+        </h2>
+
+        <!-- Q6 与 Q7 双栏主体 -->
+        <div class="chapter3-q6q7-layout">
+
+            <!-- 左侧：Q6 人形比例图 -->
+            <div class="chapter3-q6-card">
+
+                <p class="chapter3-question-label">
+                    <span class="chapter3-q-number"></span>
+                    Q:过去一年，你是否曾因时间原因没能去成某个场馆？
+                </p>
+
+                <!-- 人形比例图 -->
+                <div class="chapter3-person-visual">
+
+                    <svg
+                        class="chapter3-person-svg"
+                        viewBox="0 0 120 180"
+                        role="img"
+                        aria-label="93.16%的受访者曾因时间原因没能去成"
+                    >
+
+                        <defs>
+                            <clipPath id="q6PersonClip">
+
+                                <circle
+                                    cx="60"
+                                    cy="25"
+                                    r="16"
+                                />
+
+                                <path d="
+                                    M42 48
+                                    Q60 39 78 48
+                                    L88 91
+                                    L75 95
+                                    L73 151
+                                    L48 151
+                                    L45 95
+                                    L32 91
+                                    Z
+                                "/>
+
+                            </clipPath>
+                        </defs>
+
+                        <!-- 人形深色底色 -->
+                        <g fill="#393746">
+
+                            <circle
+                                cx="60"
+                                cy="25"
+                                r="16"
+                            />
+
+                            <path d="
+                                M42 48
+                                Q60 39 78 48
+                                L88 91
+                                L75 95
+                                L73 151
+                                L48 151
+                                L45 95
+                                L32 91
+                                Z
+                            "/>
+
+                        </g>
+
+                        <!-- 暖黄色填充 -->
+                        <rect
+                            class="chapter3-person-fill"
+                            x="0"
+                            y="19"
+                            width="120"
+                            height="161"
+                            fill="#FFDA6E"
+                            clip-path="url(#q6PersonClip)"
+                        />
+
+                    </svg>
+
+                </div>
+
+                <!-- Q6 核心数字 -->
+                <div class="chapter3-big-number">
+
+                    <strong>93.16%</strong>
+
+                    <span>
+                        曾有过因时间原因没能去成的经历
+                    </span>
+
+                </div>
+
+                <!-- Q6 四档经历频率 -->
+                <div class="chapter3-frequency">
+
+                    <p class="chapter3-frequency-title">
+                        经历频率
+                    </p>
+
+                    <div class="chapter3-frequency-list">
+
+                        <div class="chapter3-frequency-item">
+                            <span>经常有</span>
+                            <b>30.77%</b>
+                        </div>
+
+                        <div class="chapter3-frequency-item">
+                            <span>偶尔有</span>
+                            <b>43.59%</b>
+                        </div>
+
+                        <div class="chapter3-frequency-item">
+                            <span>很少有</span>
+                            <b>18.80%</b>
+                        </div>
+
+                        <div class="chapter3-frequency-item">
+                            <span>从来没有</span>
+                            <b>6.84%</b>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- 统计口径 -->
+                <p class="chapter3-data-note">
+                    核心比例为“经常有”“偶尔有”和“很少有”三项比例之和
+                </p>
+
+            </div>
+
+            <!-- 右侧：Q7 原因气泡图 -->
+            <div class="chapter3-q7-card">
+
+                <div class="chapter3-q7-heading">
+
+                    <p class="chapter3-question-label">
+                        <span class="chapter3-q-number"></span>
+                        Q:为什么没去成？
+                    </p>
+
+                    <p class="chapter3-chart-intro">
+                        时间错过的背后，可能有不同的阻碍
+                    </p>
+
+                </div>
+
+                <!-- 五个原因：暂不显示人数和百分比 -->
+                <div class="chapter3-reason-bubbles">
+
+                    <div class="chapter3-reason-bubble bubble-closed">
+                        <span class="reason-bubble-name">
+                            场馆已经闭馆
+                        </span>
+                        <b style="color: #f4d16a;">34.19%</b>
+                    </div>
+
+                    <div class="chapter3-reason-bubble bubble-entry">
+                        <span class="reason-bubble-name">
+                            已经停止入场／停止售票
+                        </span>
+                        <b style="color: #f4d16a;">29.91%</b>
+                    </div>
+
+                    <div class="chapter3-reason-bubble bubble-rush">
+                        <span class="reason-bubble-name">
+                            下班后赶过去来不及
+                        </span>
+                        <b style="color: #f4d16a;">36.75%</b>
+                    </div>
+
+                    <div class="chapter3-reason-bubble bubble-commute">
+                        <span class="reason-bubble-name">
+                            通勤时间太长
+                        </span>
+                        <b style="color: #f4d16a;">38.46%</b>
+                    </div>
+
+                    <div class="chapter3-reason-bubble bubble-short-time">
+                        <span class="reason-bubble-name">
+                            到达后剩余开放时间太短
+                        </span>
+                        <b style="color: #f4d16a;">25.64%</b>
+                    </div>
+
+                </div>
+
+                <p class="chapter3-chart-note">
+                    注：本题为多选题，图中展示五项主要原因。
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- 数据来源 -->
+        <p class="chapter3-source">
+            数据来源：问卷调查数据
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =================================================
+     第三章第三屏｜Q8＋Q9
+     Q8 斜向气泡滚动叙事 + Q9 文字分析
+================================================== -->
+
+<section class="chapter3-scene scene15">
+
+    <!-- Q8：滚动叙事轨道 -->
+    <div class="chapter3-q8-scroll-track">
+
+        <!-- 固定展示舞台 -->
+        <div class="chapter3-q8-stage">
+
+            <div class="chapter3-q8-content">
+
+                <h2 class="chapter3-q8-title">
+                    Q:没去成之后，人们怎么做？
+                </h2>
+                <p class="chapter3-q8-intro">
+                  一次没能成行，并不意味着人们就此放弃。错过场馆开放时间后，51.28%的受访者选择“以后再说”，43.59%将计划改到周末，17.09%改至其他工作日；也有39.32%的受访者转而选择开放时间更合适的场馆，38.46%选择其他休闲活动。另有17.95%的受访者最终没有再去。
+                </p>
+
+                <p class="chapter3-q8-note">
+                  注：本题和下题为多选题，受访者可选择多个选项，因此各选项比例之和超过100%。
+                </p>
+
+                <!-- 六个气泡的斜向分布区域 -->
+                <div class="chapter3-q8-bubble-field">
+
+                    <!-- 背景引导线 -->
+                    <svg
+                        class="chapter3-q8-route"
+                        viewBox="0 0 900 390"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M 820 25
+                               C 730 65, 680 85, 610 110
+                               S 490 160, 430 185
+                               S 300 245, 210 275
+                               S 100 330, 55 350"
+                            fill="none"
+                            stroke="#C6A34B"
+                            stroke-width="1.5"
+                            stroke-dasharray="3 8"
+                            opacity="0.35"
+                        />
+                    </svg>
+
+                    <!-- 气泡1：改到其他工作日 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-1"
+                        data-step="1"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            改到其他<br>工作日
+                        </span>
+                        <strong>17.09%</strong>
+                    </div>
+
+                    <!-- 气泡2：最后没有再去 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-2"
+                        data-step="2"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            最后没有<br>再去
+                        </span>
+                        <strong>17.95%</strong>
+                    </div>
+
+                    <!-- 气泡3：换成其他休闲活动 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-3"
+                        data-step="3"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            换成其他<br>休闲活动
+                        </span>
+                        <strong>38.46%</strong>
+                    </div>
+
+                    <!-- 气泡4：换到开放时间更合适的场馆 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-4"
+                        data-step="4"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            换到时间<br>更合适的场馆
+                        </span>
+                        <strong>39.32%</strong>
+                    </div>
+
+                    <!-- 气泡5：改到周末 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-5"
+                        data-step="5"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            改到周末
+                        </span>
+                        <strong>43.59%</strong>
+                    </div>
+
+                    <!-- 气泡6：以后再说 -->
+                    <div
+                        class="chapter3-q8-bubble q8-bubble-6"
+                        data-step="6"
+                    >
+                        <span class="chapter3-q8-bubble-name">
+                            以后再说
+                        </span>
+                        <strong>51.28%</strong>
+                    </div>
+
+                </div>
+                <!-- 气泡图区域结束 -->
+
+            </div>
+            <!-- chapter3-q8-content 内容区域结束 -->
+
+
+            <!-- Q9：放在气泡图右下方的文字分析 -->
+            <div class="chapter3-q9-analysis">
+
+                <div class="chapter3-q9-inner">
+
+                    <h2 class="chapter3-q9-title">
+                        Q:一次错过之后，人们怎么调整？
+                    </h2>
+
+                    <p class="chapter3-q9-body">
+                        当因为开放时间不合适而错过场馆成为反复发生的经历，人们的文化参与方式也可能随之发生变化。
+                        问卷数据显示，40.17%的受访者表示，自己逐渐减少了到馆频率，甚至不再想去；52.99%的受访者表示，只有遇到特别感兴趣的内容时，才会想办法前往。与此同时，47.01%的受访者选择在周末或节假日前往，46.15%会提前规划行程，29.91%则专门寻找开放时间更晚的场馆。
+                        这些选择呈现出两种不同的应对方式：一部分人降低了到馆频率或参与意愿，另一部分人则通过调整出行时间、提前规划或更换场馆来适应开放时间的限制。
+                    </p>
+
+                </div>
+
+            </div>
+            <!-- Q9 文字区域结束 -->
+        </div>
+        <!-- chapter3-q8-stage 固定舞台结束 -->
+    </div>
+    <!-- chapter3-q8-scroll-track 滚动轨道结束 -->
+</section>
+
+<!-- 第四屏：矩形弹幕堆叠 -->
+<section class="chapter3-scene scene-barrage">
+    <div class="chapter3-barrage-track">
+        <div class="chapter3-barrage-stage">
+
+            <h2 class="chapter3-barrage-title">
+                那些被推迟的“下次”
+            </h2>
+
+            <div class="chapter3-barrage-field"></div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- 第五屏：错过之后，逐渐淡入的文字 -->
+<section class="chapter3-scene scene16">
+    <div class="chapter3-voice-inner">
+        <!-- 第一段：一次没去成之后 -->
+        <div class="chapter3-voice-sequence">
+
+            <p class="chapter3-voice-line" data-line="1">
+                一次没去成，很多人会选择改天，
+            </p>
+
+            <p class="chapter3-voice-line voice-option" data-line="2">
+                改到周末
+            </p>
+
+            <p class="chapter3-voice-line" data-line="3">
+                或者
+            </p>
+
+            <p class="chapter3-voice-line voice-option" data-line="4">
+                以后再说
+            </p>
+
+        </div>
+
+        <!-- 第二段：一次次错过之后 -->
+        <div class="chapter3-ending-text">
+
+            <p class="chapter3-ending-line" data-line="5">
+                只是，
+            </p>
+
+            <p class="chapter3-ending-line" data-line="6">
+                当一次次错过发生，
+            </p>
+
+            <p class="chapter3-ending-line" data-line="7">
+                有些原本想去做的事，
+            </p>
+
+            <p class="chapter3-ending-line ending-emphasis" data-line="8">
+                也就真的没再去做了。
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <!-- ============================================================
+       第四章 · 第一屏（标题页）
+       ============================================================ -->
+  <section id="scene-ch4-s1" class="scene">
+
+    <!-- 主视觉背景：直接使用背景图铺满 -->
+    <div class="bg" aria-hidden="true">
+      <img src="（新新）17的背景图.png" alt="夜晚的城市，亮着暖灯的文化场馆，一个上班族背影站在远处凝望" />
+    </div>
+
+    <!--
+      全屏底部渐变遮罩：
+      * 从画面高度 50% 的位置开始向下才开始变深（上方 0–50% 完全透明，不影响原图）
+      * 50% → 65% → 80% → 100% 逐渐加深，最深 100% 处仍保持透明（alpha < 1）
+      * 层级：在背景图之上（> .bg z-index 0），在文字层之下（< .text-layer z-index 2）
+      * 不改底图、不改文字位置/动画/字号/颜色
+    -->
+    <div class="bg-bottom-gradient" aria-hidden="true"></div>
+
+    <!-- 叙事文字层 -->
+    <div class="text-layer" aria-hidden="false">
+
+      <!--
+        独立文字容器：
+        严格以整个浏览器视口为基准，绝对居中（中心点 = 视口几何中心）。
+        第一阶段标题 + 第二阶段副文都包在这里面，共享同一中心轴，绝不跳位。
+      -->
+      <div class="text-container">
+
+        <!-- 第一阶段：主标题（整体淡入；每句用 span 包裹强制单行，防止"公共文化空间"在词内断行） -->
+        <h1 class="s1-title" id="s1Title">
+          <span class="t-phrase">如果一座城市的公共文化空间，</span>
+          <span class="t-phrase">能够多等待一会儿，</span>
+          <span class="t-phrase">会发生什么？</span>
+        </h1>
+
+        <!-- 第二阶段：三句话，逐行淡入；局部遮罩挂在本元素的 ::before 上（只罩副文附近） -->
+        <div class="s1-sub" id="s1Sub">
+          <p class="sub-line l1" id="sub1">对一个刚结束工作的人来说，</p>
+          <p class="sub-line l2" id="sub2">或许意味着不用着急忙慌赶去看一场展，</p>
+          <p class="sub-line l3" id="sub3">也不用因为时间不够，一次次把"今天想做的事"留到周末。</p>
+        </div>
+
+      </div><!-- /text-container -->
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       第四章 · 第二屏（互动屏）
+       ============================================================ -->
+  <section id="scene-ch4-s2" class="scene scene--intro">
+
+    <div class="s2-lamps" aria-hidden="true">
+     <img class="lamp lamp-1" src="吊灯.png" alt="" />
+     <img class="lamp lamp-2" src="吊灯.png" alt="" />
+     <img class="lamp lamp-3" src="吊灯.png" alt="" />
+     <img class="lamp lamp-4" src="吊灯.png" alt="" />
+     <img class="lamp lamp-5" src="吊灯.png" alt="" />
+     <img class="lamp lamp-6" src="吊灯.png" alt="" />
+    </div>
+
+    <!-- 上半部分文字容器：位于页面上半区（0%–50% 为主要空间），水平垂直居中在"上半区" -->
+    <div class="s2-top-text" role="article" aria-label="第四章第二屏 · 情境提问">
+
+      <!--
+        "18:00下班的你，发现今天的场馆比平时晚1小时关门，你会怎么安排下班后的这段时间？"
+        位置取代了原先的叙事（s2-narrative）两行 → 即"挪到删掉的文字的位置上"。
+      -->
+      <p class="s2-question s2-question--hero-position">18:00下班的你，发现今天的场馆比平时晚1小时关门，你会怎么安排下班后的这段时间？</p>
+
+      <p class="s2-click-hint" id="s2ClickHint">
+         （点击下方选项，做出你的选择）
+     </p>
+     
+    </div>
+
+    <!--
+      中间区域：互动选项卡片框架
+    -->
+    <div class="s2-middle-space" role="group" aria-label="下班后时间安排的三个选项卡片">
+
+      <ul class="choice-cards" aria-label="选项列表">
+
+        <!-- 选项 1：直接去 -->
+        <li class="choice-card">
+          <div class="choice-card__top">
+            <span class="choice-card__label">直接去</span>
+          </div>
+          <div class="choice-card__bottom">
+            <img src="走路.png" alt="直接去" />
+          </div>
+        </li>
+
+        <!-- 选项 2：先吃饭 -->
+        <li class="choice-card">
+          <div class="choice-card__top">
+            <span class="choice-card__label">先吃饭</span>
+          </div>
+          <div class="choice-card__bottom">
+           <img src="吃饭.png" alt="先吃饭" />
+          </div>
+        </li>
+
+        <!-- 选项 3：回家休息 -->
+        <li class="choice-card">
+          <div class="choice-card__top">
+            <span class="choice-card__label">回家休息</span>
+          </div>
+          <div class="choice-card__bottom">
+            <img src="房子.png" alt="回家休息" />
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+
+    <!-- 第二屏：互动结果 -->
+    <div class="s2-result" id="s2Result" aria-live="polite">
+
+     <!-- 结果标题 -->
+     <p class="s2-result__choice" id="s2ResultChoice"></p>
+
+     <!-- 时间轴 -->
+     <div class="s2-timeline">
+
+       <div class="s2-timeline__labels">
+
+         <span>
+            <strong>18:00</strong>
+           <small>下班</small>
+         </span>
+
+         <span id="s2ArrivalLabel">
+           <strong>18:40</strong>
+           <small>到达</small>
+         </span>
+
+         <span>
+            <strong>20:00</strong>
+           <small>闭馆</small>
+         </span>
+
+       </div>
+
+       <!-- 时间轴主体 -->
+       <div class="s2-timeline__track">
+
+         <div
+           class="s2-timeline__used"
+           id="s2TimeUsed">
+         </div>
+
+         <div
+           class="s2-timeline__remaining"
+           id="s2TimeRemaining">
+         </div>
+
+         <div
+           class="s2-timeline__marker"
+           id="s2ArrivalMarker">
+         </div>
+
+        </div>
+
+    <!-- 时间消耗说明 -->
+    <div class="s2-timeline__details">
+
+      <span id="s2MealDetail"></span>
+
+      <span id="s2CommuteDetail">
+        通勤 40 分钟
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- 最核心的结果数字 -->
+  <p class="s2-result__number">
+    还剩
+    <strong id="s2RemainingMinutes">80</strong>
+    分钟
+  </p>
+
+
+  <!-- 人文结果文案 -->
+  <p
+    class="s2-result__caption"
+    id="s2ResultCaption">
+    时间还够，今天就去看看吧。
+  </p>
+
+</div>
+
+    <!-- 页面最底部：实验说明（去掉结尾句号，改为"仅用于模拟】"） -->
+    <p class="s2-footnote" aria-label="互动情景实验说明">
+      【互动情景实验：假设场馆统一延长开放1小时，仅用于模拟】
+    </p>
+
+  </section>
+
+  <!-- 第三屏：互动之后回到数据 -->
+  <section id="scene-ch4-s3" class="scene scene--data">
+
+  <div class="s3-title-wrap">
+    <h2 class="s3-title">
+      如果95家公共文化场馆都晚1小时闭馆，会怎么样？
+    </h2>
+
+    <p class="s3-subtitle">
+      （情景模拟｜以18:40为观察时点）
+    </p>
+  </div>
+
+  <div class="s3-flow">
+
+    <!-- 原本 -->
+    <div class="s3-data-block s3-before">
+      <div class="s3-number">
+        <strong>22</strong>
+        <span>/ 95家</span>
+      </div>
+
+      <p class="s3-label">原本18:40仍开放</p>
+
+      <div class="s3-lights s3-lights-before" id="s3LightsBefore"></div>
+    </div>
+
+    <!-- +1小时 -->
+    <div class="s3-arrow">
+      <div class="s3-arrow-line"></div>
+      <div class="s3-plus">+1小时</div>
+      <div class="s3-arrow-text">闭馆时间延后</div>
+    </div>
+
+    <!-- 延长后 -->
+    <div class="s3-data-block s3-after">
+      <div class="s3-number">
+        <strong>36</strong>
+        <span>/ 95家</span>
+      </div>
+
+      <p class="s3-label">延长后18:40仍开放</p>
+
+      <div class="s3-lights s3-lights-after" id="s3LightsAfter"></div>
+    </div>
+
+    <!-- 增加 -->
+    <div class="s3-increase">
+      <strong>+14家</strong>
+      <p>18:40仍开放的场馆<br>增加14家</p>
+    </div>
+
+    </div>
+
+  <p class="s3-description">
+    以18:40作为下班后到达场馆的参照时点，并假设所有场馆闭馆时间统一延后1小时，按现有表格口径，18:40后仍可入场的公共文化场馆由22家增至36家，净增14家，增幅约63%，整体平均剩余约至1.5小时。新增的14家以图书馆和文化馆为主，纪念馆没有新增。
+  </p>
+ 
+  <p class="s3-footnote"> 
+    【以上为情景模拟结果，不代表现实中实际新增14家场馆】 
+  </p> 
+ 
+</section>
+
+<!-- ============================================================
+     第五章封面
+     ============================================================ -->
+<section id="scene-ch5-cover" class="scene scene--chapter-cover">
+
+  <div class="ch5-bg" aria-hidden="true">
+    <img
+      src="第五章的图片（新）.jpg"
+      alt=""
+    />
+  </div>
+
+  <div class="ch5-overlay" aria-hidden="true"></div>
+
+  <div class="ch5-content">
+
+    <h2 class="ch5-title">
+      这不只是一个假设，<br>
+      城市也在尝试把灯留得更久
+    </h2>
+
+    <div class="ch5-divider"></div>
+
+    <div class="ch5-body">
+      <p>近年来，延时开放、错时开放、夜间文化活动相继出现。<br>一些场馆开始调整服务时间，让文化服务不只停留在白天……</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     第五屏：延时服务尝试案例
+     ============================================================ -->
+<section id="scene-ch5-cases" class="scene scene--cases">
+
+  <!-- 案例一：广东省博物馆 -->
+  <article class="case-slide case-slide--1">
+
+    <div class="case-main">
+
+      <div class="case-image">
+        <img src="广东省博物馆（新）.png" alt="广东省博物馆">
+      </div>
+
+      <div class="case-title">
+        
+        <h2>
+          广东省博物馆于2026年暑期首次启动夜间全面延长开放
+        </h2>
+      </div>
+
+    </div>
+
+    <div class="case-description">
+
+      <p>
+        7月1日至8月30日，该馆将每个开馆日闭馆时间从常规的
+        <span class="case-highlight">17:00延长至21:00</span>，
+        每日开放时长达<span class="case-highlight">12小时</span>。</p>
+        <p>延时开放期间，馆方同步推出“文艺复兴的交响：格拉斯哥博物馆藏大师作品展”、
+        “印象·梵高：沉浸式数字艺术展”、“虫友——寻访甲虫世界”三大展览及
+        “蚂蚁的世界”VR沉浸式体验，并组织各类特色活动
+        <span class="case-highlight">150余场</span>，
+        带动暑期总到访观众约<span class="case-highlight">75万人次</span>。</p>
+
+      <p class="case-source">
+        <span>数据来源：</span>
+        南都N视频.《粤博暑期到访观众量75万人次，“粤博之夜”点亮盛夏》. 2026-09-02.
+      </p>
+
+    </div>
+
+  </article>
+
+
+  <!-- 案例二：越秀区文化馆 -->
+  <article class="case-slide case-slide--2">
+
+    <div class="case-main">
+
+      <div class="case-image">
+        <img src="越秀区文化馆（新）.png" alt="越秀区文化馆">
+      </div>
+
+      <div class="case-title">
+
+        <h2>
+          越秀区文化馆以“文化馆 夜未央”品牌推进延时、错时与流动服务
+        </h2>
+      </div>
+
+    </div>
+
+    <div class="case-description">
+
+      <p>
+        文化馆功能室与展览开放时间均延时至<span class="case-highlight">21:30</span>，
+        该馆一楼“39号创艺坊”内的
+        <span class="case-highlight">“39号夜享空间”</span>
+        开放时间为每晚<span class="case-highlight">20:00至次日零点</span>，
+        设有创作区、展示区、休息区及阅读交流区，并推出线上预约服务。
+      </p>
+
+      <p>
+        推出<span class="case-highlight">“39号星空夜话”</span>服务品牌，以艺术疗愈为核心，融合音乐、绘画、话剧、香道、手作等形式。
+        此外，文化馆还制定<span class="case-highlight">《越秀区文化馆延时服务工作制度》</span>，从总分馆延时服务现状入手，
+        构建起包括服务标准、项目清单、人员规范、品牌建立等在内的制度体系。</p>
+
+      <p class="case-source">
+        <span>数据来源：</span>
+        羊城晚报·羊城派.《推动延时制度建设，广州越秀公共文化服务优化再升级》. 2026-03-11.羊城晚报·羊城派.《越“夜”越精彩，广州越秀公共文化延时服务再升级》. 2026-08-26.
+      </p>
+
+    </div>
+
+  </article>
+
+
+  <!-- 案例三：广东美术馆 -->
+  <article class="case-slide case-slide--3">
+
+    <div class="case-main">
+
+      <div class="case-image">
+        <img src="广东美术馆（新）.png" alt="广东美术馆">
+      </div>
+
+      <div class="case-title">
+
+        <h2>
+          粤夜粤美——广东美术馆暑期夜场活动
+        </h2>
+      </div>
+
+    </div>
+
+    <div class="case-description">
+
+     <p>
+        2026年“粤夜粤美”广东省夜间文化和旅游消费促进活动期间，
+        广东美术馆于7月10日至8月30日将闭馆时间从
+        <span class="case-highlight">17:00延长至21:00</span>，
+        延时开放覆盖约<span class="case-highlight">45个开放日</span>，
+        累计增加开放约<span class="case-highlight">180小时</span>。
+     </p>
+
+     <p>
+        广东美术馆推出主题导览、冥想瑜伽、书法体验等特别活动，
+        夜间观展由单一视觉欣赏转向沉浸式身心体验。
+     </p>
+
+     <p>
+        夜场观众主要由<span class="case-highlight">上班族、周边居民和外地游客</span>三类人群构成。
+        延时开放使“下班看展”不再局限于节假日，而成为上班族工作日下班后可实现的文化消费选择。
+     </p>
+
+     <p class="case-source">
+        <span>数据来源：</span>
+        金羊网.《今夏文化场馆点亮“粤夜”，美在何处？》. 2026-08-17.
+     </p>
+
+    </div>
+
+  </article>
+
+</section>
+
+<!-- ============================================================
+     第六屏 · 政策资料
+     ============================================================ -->
+
+<section id="scene-ch4-policy" class="scene scene--policy">
+
+  <div class="policy-header">
+    <h2>广州公共文化空间的增量与延时</h2>
+  </div>
+
+  <div class="policy-layout">
+
+    <!-- 左侧目录 -->
+    <aside class="policy-nav">
+
+      <div class="policy-nav-label">POLICY</div>
+
+      <button class="policy-nav-item is-active" data-target="policy-part-1">
+        <span>01</span>
+        <strong>布局目标</strong>
+      </button>
+
+      <button class="policy-nav-item" data-target="policy-part-2">
+        <span>02</span>
+        <strong>周开放时长</strong>
+      </button>
+
+      <button class="policy-nav-item" data-target="policy-part-3">
+        <span>03</span>
+        <strong>延时服务</strong>
+      </button>
+
+      <button class="policy-nav-item" data-target="policy-part-4">
+        <span>04</span>
+        <strong>空间建设</strong>
+      </button>
+
+    </aside>
+
+
+    <!-- 右侧正文 -->
+    <div class="policy-content" id="policyContent">
+
+      <!-- 第一部分 -->
+      <article class="policy-part" id="policy-part-1">
+
+        <h3>一、2035年布局目标：图书馆625处，博物馆300处</h3>
+
+        <p>
+          2020年《广州市公共文化设施布局专项规划（2020—2035年）》提出，
+          构建广州公共文化设施体系，对各类、各区设施进行需求预测和布局。
+          到2035年，博物馆（含美术馆、展览馆、纪念馆）数量达到
+          <span class="policy-highlight">300处</span>；
+          各级图书馆达到<span class="policy-highlight">625处</span>。
+        </p>
+
+      </article>
+
+
+      <!-- 第二部分 -->
+      <article class="policy-part" id="policy-part-2">
+
+        <h3>二、周开放时长</h3>
+
+        <p>
+          2023年《广州市基本公共服务标准》明确，公共文化设施开放时间不得少于市有关规定的最低时限，实行错时开放，
+          《广州市公共文化服务实施标准（2021-2025年）》同样规定，公共文化设施免费开放应与公众的工作时间、学习时间错开，
+          <span class="policy-highlight">错时开放时间不少于总开放时间的1/3</span>。
+        </p>
+
+        <h4>按《广州市公共图书馆服务规范》及上级要求：</h4>
+
+        <table class="policy-table">
+          <thead>
+            <tr>
+              <th>场馆类型</th>
+              <th>每周累计开放时间最低标准</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>市中心馆</td>
+              <td><strong>≥70小时</strong></td>
+            </tr>
+            <tr>
+              <td>区域总馆</td>
+              <td>≥63小时</td>
+            </tr>
+            <tr>
+              <td>镇、街道分馆</td>
+              <td>≥42小时</td>
+            </tr>
+            <tr>
+              <td>少年儿童图书馆</td>
+              <td>≥48小时</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <h4>按《广州市文化馆、站（室）服务规范》要求：</h4>
+
+        <table class="policy-table">
+          <thead>
+            <tr>
+              <th>场馆类型</th>
+              <th>每周累计开放时间最低标准</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>市、区文化馆</td>
+              <td><strong>≥56小时</strong></td>
+            </tr>
+            <tr>
+              <td>乡镇（街道）文化站（文化馆分管）</td>
+              <td>≥42小时</td>
+            </tr>
+            <tr>
+              <td>行政村（社区）基层综合性文化服务中心</td>
+              <td>≥35小时</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </article>
+
+
+      <!-- 第三部分 -->
+      <article class="policy-part" id="policy-part-3">
+
+        <h3>三、延时服务：鼓励延长开放时间，公休日节假日应开放</h3>
+
+        <div class="policy-big-number">
+          21:00
+          <span>有条件的公共文化设施延长开放至21:00</span>
+        </div>
+
+        <p>
+          2025年《广东省公共文化服务促进条例》提出，鼓励公共文化设施提供夜间服务、延时服务、错时服务；
+          公共文化设施在公休日、国家法定节假日应当开放，在学校寒暑假期间适当延长开放时间；
+          公共文化设施管理单位不得因免费开放降低服务水平，并应根据公众文化需求逐步增加服务项目。
+        </p>
+
+        <p>
+          2026年《广东省旅游友好型城市建设导则（试行）》进一步提出，
+          鼓励公共文化设施提供夜间服务，有条件的延长开放时间至
+          <span class="policy-highlight">21:00</span>；
+          公共文化场馆原则上不实行预约制，为特殊人群提供免预约通道。
+        </p>
+
+      </article>
+
+
+      <!-- 第四部分 -->
+      <article class="policy-part" id="policy-part-4">
+
+        <h3>四、空间建设：打造花城市民文化空间</h3>
+
+        <p>
+          2026年《关于推动广州市公共文化空间可持续发展的提案答复》提到，
+          近5年来，市级累计打造
+          <span class="policy-highlight">100家“花城市民文化空间”</span>，
+          并带动全市各级文化新空间
+          <span class="policy-highlight">1000余家</span>
+          建设发展。
+        </p>
+
+        <p>
+          《广州市国土空间总体规划（2021—2035）》进一步提出，继续加快推进“图书馆之城”“博物馆之城”建设，
+          完善各区公共文化设施配置，
+          <span class="policy-highlight">规划到2035年新建、改扩建区级及以上文化设施60处</span>。
+          市商务局积极推动重点商圈、商业综合体、商业步行街、专业市场等商业载体，
+          因地制宜配套公共文化空间，植入阅读驿站、文创展厅、小型演艺等文化业态。
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     第七屏 · 广州夜晚
+     ============================================================ -->
+<section id="scene-ch4-night" class="scene scene--night">
+
+  <video
+    class="night-video"
+    muted
+    loop
+    playsinline
+    preload="metadata"
+  >
+    <source src="城市街道夜景（新）.mp4" type="video/mp4">
+  </video>
+
+  <div class="night-overlay" aria-hidden="true"></div>
+
+  <div class="night-text">
+
+    <p class="night-line">
+      晚上八点
+    </p>
+
+    <p class="night-line">
+      广州依然热闹
+    </p>
+
+    <p class="night-line">
+      街道上的灯还亮着
+    </p>
+
+    <p class="night-line">
+      地铁仍然有人穿行
+    </p>
+
+    <p class="night-line">
+      城市从来不是只有白天
+    </p>
+
+    <p class="night-line">
+      有人结束加班
+    </p>
+
+    <p class="night-line">
+      有人结束奔波
+    </p>
+
+    <p class="night-line">
+      终于拥有一点属于自己的时间
+    </p>
+
+    <p class="night-line">
+      他们想要的，是
+    </p>
+
+    <p class="night-line">
+      一个可以安静坐一会儿的地方
+    </p>
+
+    <p class="night-line">
+      一本可以慢慢阅读的书
+    </p>
+
+    <p class="night-line">
+      一场下班后还赶得上的展览
+    </p>
+
+  </div>
+
+</section>
+
+<!-- ============================================================
+     结尾 · 互动亮灯
+     ============================================================ -->
+<section id="scene-ch4-ending" class="scene scene--ending">
+
+  <img
+    class="ending-bg ending-bg--1"
+    src="第25第一个（新）.jpg"
+    alt=""
+  >
+
+  <img
+    class="ending-bg ending-bg--2"
+    src="第25第二个（新）.png"
+    alt=""
+  >
+
+  <div class="ending-overlay"></div>
+
+  <div class="ending-text">
+    公共文化服务的意义，是在我们有空的时候，那里还亮着灯......
+  </div>
+
+</section>
+
+
+<!-- 参考文献屏：数据与资料来源 -->
+<section id="sources-section" class="scene scene--sources">
+
+  <div class="sources-inner">
+
+    <header class="sources-header">
+      <h2>数据与资料来源</h2>
+    </header>
+
+    <div class="sources-content">
+
+      <!-- 一、场馆基础数据 -->
+      <section class="sources-group">
+        <h3><span>01</span> 场馆基础数据</h3>
+        <p class="sources-description">
+          广州市95家区级及以上公共文化场馆，统计截止日期为2026年10月3日。
+          数据包括公共图书馆、文化馆、博物馆等场馆的名单及开放时间。
+        </p>
+        <ol class="sources-list">
+          <li><a href="https://www.gzlib.org.cn/serviceBulletin/197116.jhtml?utm_source.com=" target="_blank" rel="noopener noreferrer">广州数字图书馆：《广州市公共图书馆开放时间一览表》（截至2026年7月6日）</a></li>
+          <li><a href="https://wglj.gz.gov.cn/ggfw/lyl/lydwcx/content/post_10424868.html" target="_blank" rel="noopener noreferrer">广州市文化广电旅游局（广州市文物局）：《广州市文化馆情况一览表》（2025年9月1日）</a></li>
+          <li><a href="https://www.gz.gov.cn/zfjg/gzswhgdlyj/zdly/lysc/cyzl/content/post_10280233.html" target="_blank" rel="noopener noreferrer">广州市人民政府：《广州市市级以上公共文化设施目录》（2025年5月23日）</a></li>
+          <li><a href="https://www.by.gov.cn/gzbywglt/gkmlpt/content/10/10244/post_10244068.html" target="_blank" rel="noopener noreferrer">广州市白云区文化广电旅游体育局：《白云区公共文化设施目录》（2025年4月29日）</a></li>
+          <li><a href="https://www.haizhu.gov.cn/gzhzwglt/gkmlpt/content/10/10229/post_10229169.html" target="_blank" rel="noopener noreferrer">广州市海珠区文化广电旅游体育局：《关于发布海珠区公共文化设施目录的通知》（2025年4月23日）</a></li>
+          <li><a href="https://www.gz.gov.cn/zwgk/zdly/shgysyjs/ggwhty/ggwh/content/post_9864493.html" target="_blank" rel="noopener noreferrer">广州市人民政府：《广州市备案博物馆参观信息表》（2024年6月）</a></li>
+          <li><a href="https://wglj.gz.gov.cn/attachment/7/7051/7051245/8064493.pdf" target="_blank" rel="noopener noreferrer">广州市文化广电旅游局：《广州市博物馆事业“十四五”发展规划和2035年远景目标》（2022年1月26日）</a></li>
+          <li>各文化场馆官方网站及官方微信公众号发布的最新开放信息。</li>
+        </ol>
+      </section>
+
+      <!-- 二、问卷调查数据 -->
+      <section class="sources-group">
+        <h3><span>02</span> 问卷调查数据</h3>
+        <p class="sources-description">
+          <strong>问卷链接：</strong>
+          <a href="https://v.wjx.cn/vm/O6uP8A7.aspx" target="_blank" rel="noopener noreferrer">《你下班，它关门》——上班族下班后文化生活调查</a>
+        </p>
+        <ul class="sources-list sources-facts">
+          <li><strong>调查时间：</strong>2026年10月1日至10月9日。</li>
+          <li><strong>有效样本量：</strong>117份。</li>
+          <li><strong>调查方式：</strong>线上问卷，通过小红书等渠道传播。</li>
+          <li><strong>数据用途：</strong>调查受访者的工作时间、通勤时长、公共文化场馆使用习惯，以及因时间原因未能前往场馆的经历；同时考察未能成行后的应对方式、后续场馆使用习惯的变化和对工作日延长开放的态度，并通过开放式问题收集个人经历。</li>
+        </ul>
+      </section>
+
+      <!-- 三、新闻报道与场馆案例 -->
+      <section class="sources-group">
+        <h3><span>03</span> 新闻报道与场馆案例</h3>
+        <ol class="sources-list">
+          <li><a href="https://m.mp.oeeee.com/a/BAAFRD0000202609021658266.html" target="_blank" rel="noopener noreferrer">南都N视频：《粤博暑期到访观众量75万人次，“粤博之夜”点亮盛夏》（2026年9月2日）</a></li>
+          <li><a href="https://6nis.ycwb.com/app/template/displayTemplate/news/newsDetail/120401/53030914.html?isShare=true" target="_blank" rel="noopener noreferrer">羊城晚报·羊城派：《推动延时制度建设，广州越秀公共文化服务优化再升级》（2026年3月11日）</a></li>
+          <li><a href="https://6nis.ycwb.com/app/template/displayTemplate/news/newsDetail/120401/52888870.html?isShare=true" target="_blank" rel="noopener noreferrer">羊城晚报·羊城派：《越“夜”越精彩，广州越秀公共文化延时服务再升级》（2026年8月26日）</a></li>
+          <li><a href="https://www.sohu.com/a/1063827357_119778" target="_blank" rel="noopener noreferrer">金羊网：《今夏文化场馆点亮“粤夜”，美在何处？》（2026年8月17日）</a></li>
+        </ol>
+      </section>
+
+      <!-- 四、政策与规划资料 -->
+      <section class="sources-group">
+        <h3><span>04</span> 政策与规划资料</h3>
+        <ol class="sources-list">
+          <li><a href="https://wglj.gz.gov.cn/gkmlpt/content/10/10902/post_10902990.html" target="_blank" rel="noopener noreferrer">广州市文化广电旅游局：《广州市文化广电旅游局关于政协十四届广州市委员会第五次会议第4124号提案答复意见的函》（2026年7月15日）</a></li>
+          <li><a href="https://whly.gd.gov.cn/news_newzwhd/content/post_4923868.html" target="_blank" rel="noopener noreferrer">广东省文化和旅游厅、广东省公安厅、广东省自然资源厅等七部门：《广东省旅游友好型城市建设导则（试行）》（2026年7月13日）</a></li>
+          <li><a href="https://whly.gd.gov.cn/open_newqtwj/content/post_4611455.html" target="_blank" rel="noopener noreferrer">广东省人民代表大会常务委员会：《广东省公共文化服务促进条例》（2025年1月21日）</a></li>
+          <li><a href="https://www.gz.gov.cn/gzzcwjk/gzdata/content/mpost_9734899.html" target="_blank" rel="noopener noreferrer">广州市发展和改革委员会：《广州市基本公共服务标准（2023年版）》（2024年7月1日）</a></li>
+          <li><a href="https://www.gz.gov.cn/zwgk/gzsrmzfgbn/2024/34/content/mpost_10640441.html" target="_blank" rel="noopener noreferrer">广州市人民政府：《广州市公共文化服务实施标准（2021—2025年）》（2024年11月6日）</a></li>
+          <li><a href="https://www.gz.gov.cn/zwgk/ghjh/zxgh/content/post_9960355.html" target="_blank" rel="noopener noreferrer">广州市人民政府：《广州市国土空间总体规划（2021—2035年）》（2024年11月6日）</a></li>
+          <li><a href="https://wglj.gz.gov.cn/xxgk/gzdt/tzgsgg/content/post_7025353.html" target="_blank" rel="noopener noreferrer">广州市文化广电旅游局：《广州市公共文化设施布局专项规划（2020—2035年）》（2020年12月24日）</a></li>
+          <li><a href="https://www.gz.gov.cn/gfxwj/sbmgfxwj/gzswhgdlyj/content/mpost_6464308.html" target="_blank" rel="noopener noreferrer">广州市文化广电旅游局：《广州市文化馆、站（室）服务规范》（2020年7月17日）</a></li>
+        </ol>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="chapter1-map-data.js"></script>
+    <script src="script.js"></script>
+    <script src="chapter4-6.js"></script>
+</body>
+</html>
